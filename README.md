@@ -2,19 +2,29 @@
 
 [![CI](https://github.com/Thivas12/agent-rag-core/actions/workflows/ci.yml/badge.svg)](https://github.com/Thivas12/agent-rag-core/actions/workflows/ci.yml)
 
-Typed contracts and evaluation primitives for auditable, real-time agentic RAG systems.
+Typed contracts and evaluation primitives for auditable retrieval and agent systems.
 
-This repository is the shared foundation for three six-month portfolio flagships:
-
-- **AtlasPulse** — real-time disruption intelligence from public hazard and infrastructure feeds.
-- **RepairMesh** — observable multi-agent diagnosis and repair for software and data failures.
-- **TransitTwin** — a multi-city transit digital twin using official GTFS-Realtime feeds.
+AgentRAG Core is a self-directed engineering project focused on the small, stable building blocks
+that retrieval and agent applications repeatedly need. The repository currently concentrates on
+validated data contracts, provenance, immutability, and reproducible evaluation records.
 
 ## Why this repository exists
 
-The three systems need the same language for events, retrieved evidence, agent actions, and
-evaluation results. Defining that language once prevents incompatible payloads and makes every
-decision traceable across service boundaries.
+Retrieval and agent systems pass evidence and decisions across several boundaries. A shared,
+strictly validated language for those records makes failures easier to inspect and experiments
+easier to reproduce.
+
+## What exists today
+
+Version `0.1.0` provides four immutable Pydantic contracts with strict validation:
+
+- stable event identities and deduplication keys;
+- evidence records with URI provenance and SHA-256 integrity checks;
+- auditable agent-action lifecycle records; and
+- evaluation records tied to data, model, configuration, and code versions.
+
+The repository also has pinned Python dependencies, strict typing, linting, automated tests, and a
+GitHub Actions quality gate.
 
 ## Contracts
 
@@ -28,6 +38,15 @@ decision traceable across service boundaries.
 All models reject unknown fields, require timezone-aware timestamps, and are immutable after
 validation.
 
+## Planned next
+
+The next work is to add typed retrieval interfaces and a small evaluation harness around the
+existing contracts. Telemetry and bounded tool execution are later plans, not released features.
+Reusable patterns proven in AtlasPulse may move here when they are stable enough to share.
+
+See [`docs/project-direction.md`](docs/project-direction.md) for the current boundaries and planned
+order of work.
+
 ## Local development
 
 ```bash
@@ -39,12 +58,3 @@ uv run pytest --cov=agent_rag_core --cov-report=term-missing
 ```
 
 Python 3.12 and dependency versions are pinned through `.python-version` and `uv.lock`.
-
-## Current scope
-
-Version `0.1.0` establishes the shared contracts and quality gate. The next vertical slice connects
-AtlasPulse to the live USGS earthquake feed, passes validated events through a stream, persists the
-raw source response, and exposes the result through FastAPI with OpenTelemetry traces.
-
-See [`docs/portfolio-contract.md`](docs/portfolio-contract.md) for the hypotheses, constraints, and
-definition of done governing the full programme.
