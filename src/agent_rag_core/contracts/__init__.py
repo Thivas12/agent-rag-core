@@ -1,4 +1,4 @@
-"""Public contracts shared by every portfolio system."""
+"""Public contracts for auditable retrieval and agent systems."""
 
 from agent_rag_core.contracts.agent_action import ActionStatus, AgentAction
 from agent_rag_core.contracts.evaluation_run import EvaluationRun, EvaluationStatus
